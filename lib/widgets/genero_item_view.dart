@@ -10,14 +10,23 @@ class GeneroItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<GeneroViewModel>(context);
+
     return Container(
       padding: const EdgeInsets.all(4),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(genero.nome),
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_right),
+            onPressed: () => click(context),
+            icon: Icon(
+              Icons.task_alt,
+              color:
+                  vm.jaSelecionouGenero && vm.generoSelecionado.id == genero.id
+                      ? Colors.green
+                      : Colors.black,
+            ),
           ),
         ],
       ),
@@ -25,7 +34,7 @@ class GeneroItemView extends StatelessWidget {
   }
 
   void click(BuildContext context) {
-    final vm = Provider.of<GeneroViewModel>(context);
+    final vm = Provider.of<GeneroViewModel>(context, listen: false);
     vm.selecionaGenero(genero);
 
     Navigator.pop(context);
