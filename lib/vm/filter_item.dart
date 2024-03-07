@@ -42,9 +42,7 @@ class FilterItem extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: Center(
-                child: Text(value)
-              ),
+              child: Center(child: Text(value)),
             ),
           ],
         ),

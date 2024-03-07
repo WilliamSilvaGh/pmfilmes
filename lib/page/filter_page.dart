@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pmfilmes/page/ator_page.dart';
 import 'package:pmfilmes/page/genero_page.dart';
+import 'package:pmfilmes/vm/ator_view_model.dart';
 import 'package:pmfilmes/vm/filter_item.dart';
 import 'package:pmfilmes/vm/genero_view_model.dart';
 import 'package:provider/provider.dart';
+
+//
 
 class FilterPage extends StatelessWidget {
   const FilterPage({super.key});
@@ -10,12 +14,15 @@ class FilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final generoVM = Provider.of<GeneroViewModel>(context);
+    final atorVM = Provider.of<AtorViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Filtros"),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Wrap(children: [generoView(context, generoVM)]),
+      body: Wrap(
+        children: [generoView(context, generoVM), atorView(context, atorVM)],
+      ),
     );
   }
 
@@ -25,5 +32,12 @@ class FilterPage extends StatelessWidget {
             vm.jaSelecionouGenero ? vm.generoSelecionado.nome : "Não informado",
         onPressed: () => Navigator.push(
             context, MaterialPageRoute(builder: (_) => const GeneroPage())),
+      );
+
+  Widget atorView(BuildContext context, AtorViewModel vm) => FilterItem(
+        title: "Ator",
+        value: vm.jaSelecionouAtor ? vm.atorSelecionado.nome : "Não informado",
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const AtorPage())),
       );
 }
